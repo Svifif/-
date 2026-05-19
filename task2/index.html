@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Расчет энтропии зависимых систем</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="app">
+      <section class="workspace">
+        <header class="page-header">
+          <div>
+            <p class="kicker">Задание N2</p>
+            <h1>Энтропия сложной системы</h1>
+            <p class="subtitle">
+              Расчет характеристик двух зависимых систем по матрице вероятностей совместных состояний.
+            </p>
+          </div>
+          <div class="formula-panel" aria-label="Основные формулы">
+            <span>H(A,B) = -Σ p<sub>ij</sub> log<sub>2</sub> p<sub>ij</sub></span>
+            <span>H(A|B) = H(A,B) - H(B)</span>
+          </div>
+        </header>
+
+        <section class="controls" aria-label="Параметры матрицы">
+          <label>
+            Состояний системы A
+            <input id="rowsInput" type="number" min="1" max="12" value="3">
+          </label>
+          <label>
+            Состояний системы B
+            <input id="colsInput" type="number" min="1" max="12" value="3">
+          </label>
+          <button id="resizeButton" type="button">Изменить размер</button>
+          <button id="exampleButton" type="button">Пример</button>
+          <button id="clearButton" type="button">Очистить</button>
+        </section>
+
+        <section class="matrix-section" aria-label="Матрица вероятностей">
+          <div class="section-heading">
+            <h2>Матрица P(A<sub>i</sub>, B<sub>j</sub>)</h2>
+            <p id="sumStatus">Сумма вероятностей: 0</p>
+          </div>
+          <div class="matrix-wrap">
+            <table id="matrixTable" class="matrix-table"></table>
+          </div>
+          <div id="message" class="message" role="status"></div>
+        </section>
+
+        <section class="actions">
+          <button id="calculateButton" class="primary" type="button">Рассчитать</button>
+          <label class="checkbox">
+            <input id="normalizeInput" type="checkbox">
+            Нормировать матрицу, если сумма не равна 1
+          </label>
+        </section>
+
+        <section class="results" aria-label="Результаты расчета">
+          <article>
+            <span>H(A,B)</span>
+            <strong id="jointEntropy">-</strong>
+            <small>совместная энтропия</small>
+          </article>
+          <article>
+            <span>H(A)</span>
+            <strong id="entropyA">-</strong>
+            <small>энтропия системы A</small>
+          </article>
+          <article>
+            <span>H(B)</span>
+            <strong id="entropyB">-</strong>
+            <small>энтропия системы B</small>
+          </article>
+          <article>
+            <span>H(A|B)</span>
+            <strong id="conditionalAGivenB">-</strong>
+            <small>условная энтропия A при B</small>
+          </article>
+          <article>
+            <span>H(B|A)</span>
+            <strong id="conditionalBGivenA">-</strong>
+            <small>условная энтропия B при A</small>
+          </article>
+          <article>
+            <span>I(A;B)</span>
+            <strong id="mutualInformation">-</strong>
+            <small>взаимная информация</small>
+          </article>
+        </section>
+
+        <section class="details" aria-label="Промежуточные значения">
+          <h2>Промежуточные значения</h2>
+          <div class="detail-grid">
+            <div>
+              <h3>P(A)</h3>
+              <ol id="marginalA"></ol>
+            </div>
+            <div>
+              <h3>P(B)</h3>
+              <ol id="marginalB"></ol>
+            </div>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>

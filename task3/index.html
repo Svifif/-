@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AES-128: пошаговое шифрование</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="app">
+    <section class="panel start-slide">
+      <div class="title-row">
+        <div>
+          <p class="eyebrow">AES-128</p>
+          <h1>Слово -> ключ -> шифр</h1>
+        </div>
+        <button id="demoBtn" class="secondary" type="button">Пример</button>
+      </div>
+
+      <div class="workspace">
+        <label>
+          Слово
+          <textarea id="plainText" rows="4" placeholder="Введите слово или фразу">Пример AES</textarea>
+        </label>
+
+        <label>
+          Ключ
+          <input id="keyText" value="Учебный ключ 123" maxlength="64">
+        </label>
+
+        <label>
+          Шифр HEX
+          <textarea id="cipherInput" rows="4" placeholder="Нажмите 'Вычислить шифр' или вставьте HEX для дешифрования"></textarea>
+        </label>
+      </div>
+
+      <div class="actions">
+        <button id="encryptBtn" type="button" class="primary">Вычислить шифр</button>
+        <button id="decryptBtn" type="button">Дешифровать</button>
+        <button id="stepsBtn" type="button">Показать шаги</button>
+        <button id="aboutBtn" type="button">Об алгоритме</button>
+        <button id="duckBtn" type="button" aria-label="Показать утку">Утка</button>
+      </div>
+
+      <div class="status" id="status">Введите слово и ключ, затем нажмите “Вычислить шифр”.</div>
+      <output id="decryptedText" class="plain-result"></output>
+    </section>
+
+    <section id="stepsPanel" class="panel steps-panel hidden">
+      <div class="title-row">
+        <div>
+          <p class="eyebrow" id="modeLabel">Шифрование</p>
+          <h2 id="stepsTitle">Шаги AES для первого блока</h2>
+        </div>
+        <button id="hideStepsBtn" type="button">Скрыть шаги</button>
+      </div>
+      <div id="roundTabs" class="tabs"></div>
+      <div id="operationTabs" class="tabs operation-tabs"></div>
+      <div id="roundDetails" class="round-details"></div>
+    </section>
+
+    <section id="aboutPanel" class="panel about-panel hidden">
+      <div class="title-row">
+        <h2>Об алгоритме</h2>
+        <button id="closeAboutBtn" type="button">Закрыть</button>
+      </div>
+      <div class="about-grid">
+        <article>
+          <h3>1. Разделение на блоки</h3>
+          <p>AES работает блоками по 16 байт. Если байтов больше, они режутся на блоки; на шаге показывается первый блок.</p>
+        </article>
+        <article>
+          <h3>2. Подготовка слова</h3>
+          <p>Символы переводятся в UTF-8 байты. Затем PKCS#7 дополняет последний блок до 16 байт.</p>
+        </article>
+        <article>
+          <h3>3. Раунды</h3>
+          <p>AES-128 использует 10 раундов. Раунды 1-9 содержат SubBytes, ShiftRows, MixColumns, AddRoundKey. В 10 раунде MixColumns нет.</p>
+        </article>
+        <article>
+          <h3>4. Дешифрование</h3>
+          <p>Дешифрование идет обратно: ключи применяются в обратном порядке, а операции заменяются на обратные.</p>
+        </article>
+      </div>
+    </section>
+
+    <div id="duck" class="duck hidden" aria-live="polite">
+      <div class="forest-scene">
+        <div class="tree t1"></div>
+        <div class="tree t2"></div>
+        <div class="tree t3"></div>
+        <div class="pond"></div>
+        <div class="duck-body">
+          <span class="duck-head">🦆</span>
+          <span class="quack">кря!</span>
+        </div>
+        <span class="flying-duck fd1">🦆</span>
+        <span class="flying-duck fd2">🦆</span>
+        <span class="flying-duck fd3">🦆</span>
+        <span class="flying-duck fd4">🦆</span>
+        <span class="flying-duck fd5">🦆</span>
+      </div>
+    </div>
+  </main>
+
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
+  <script defer src="app.js"></script>
+</body>
+</html>
